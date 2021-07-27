@@ -1,0 +1,15 @@
+{
+  "name": "WhatsBotNodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.3",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.12.5"
+  }
+}

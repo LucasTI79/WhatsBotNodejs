@@ -1,0 +1,11 @@
+node_modules
+.env
+session.json
+sessions.txt
+yarn.lock
+package-lock.json
+examples.js
+features.md
+index.js
+drs.txt
+planos.txt
