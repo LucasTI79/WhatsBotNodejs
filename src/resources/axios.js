@@ -6,8 +6,8 @@ const { convertISODate, plano, dr } = require('../Utils/functions')
 
 const options = {
   params: {
-    startDh:'2021-07-28T03:00:00.000Z',
-    endDh:  '2021-07-29T03:00:00.000Z',
+    startDh:'2021-07-29T03:00:00.000Z',
+    endDh:  '2021-07-30T03:00:00.000Z',
     minimal:false,
     pageNumber:1
   }

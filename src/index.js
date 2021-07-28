@@ -27,7 +27,7 @@ client.on('ready', () => {
           if(consultaExpecifica.status === 0 || consultaExpecifica.status === 2){
               // console.log(
               //   consultaExpecifica.paciente.nome.split(' ')[0],
-              //   convertISODate(consultaExpecifica.data,'default')  
+              //   convertISODate(consultaExpecifica.data,'confirmacao')  
               // )
               client.sendMessage(
                 `55${consultaExpecifica.paciente.celular}@c.us`,
