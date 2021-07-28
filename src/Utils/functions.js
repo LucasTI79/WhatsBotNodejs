@@ -49,7 +49,7 @@ function convertISODate(str,format = 'default'){
         //const date = new Date(str).toLocaleDateString('pt-BR',{ weekday:'long', day:'numeric',month:'numeric',year:''}).split('-')//windows
         //console.log(date)
         return new Date(str).toLocaleDateString('pt-BR',{ weekday:'long', day:'numeric',month:'long', hour:'numeric',minute:'numeric'})// (
-            //String(`${weekdayLong(date[0].split(',')[1].trim())}, dia ${date[0].split(' ')[2].slice(0,2)} de ${monthLong(date[0].split(' ')[1])} às ${new Date(str).toLocaleTimeString('pt-br',{hour:'numeric',minute:'numeric'})}`))
+        //String(`${weekdayLong(date[0].split(',')[1].trim())}, dia ${date[0].split(' ')[2].slice(0,2)} de ${monthLong(date[0].split(' ')[1])} às ${new Date(str).toLocaleTimeString('pt-br',{hour:'numeric',minute:'numeric'})}`))
     }else{
         return { error: 'Invalid format'}
     }
