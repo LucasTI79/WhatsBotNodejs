@@ -19,6 +19,18 @@ const consultasSemana = async () => {
   return response.data
 }
 
+const getProfessionals = async (consulta) => {
+  const response = await axios.get(`https://api.simplesdental.com/profissionais`, options)
+  const data = response.data.content.map(professional => ({ [professional.id] : professional.nome.split(' ')[0]}))
+  return data
+}
+
+const getPlans = async (consulta) => {
+  const response = await axios.get(`https://api.simplesdental.com/planos`, options)
+  const data = response.data.content.map(plan => ({ [plan.id] :plan.nome }))
+  return data
+}
+
 const detalhesConsulta = async (consulta) => {
   const response = await axios.get(`https://api.simplesdental.com/consultas/${consulta.id}`, options)
   return response.data
@@ -101,6 +113,8 @@ module.exports = { consultasSemana, detalhesConsulta , FiltroConsultaPorfissiona
   })
   .then(async res => {
     options.headers = {'X-AUTH-TOKEN': res.data.profissionais[0].user.token} 
+    console.log('profissionais', await getProfessionals())
+    console.log('plans', await getPlans())
     // console.log(options.headers)
     // console.log(await orto())
   })

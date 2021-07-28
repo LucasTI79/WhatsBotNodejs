@@ -112,4 +112,4 @@ function dr(drId){
     return drs[drId]
 }
 
-module.exports = { capitalizeFirstLetter, contains, timestampIsToday, convertISODate, convertCTOISO, monthShort, regex, plano, dr }
+module.exports = { capitalizeFirstLetter, contains, timestampIsToday, convertISODate, convertCTOISO, regex, plano, dr }
