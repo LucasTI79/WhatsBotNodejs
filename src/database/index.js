@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 //     useFindAndModify:false
 // });
 
-mongoose.connect('mongodb+srv://lucas:020918@cluster0.xphxz.mongodb.net/nodechat?retryWrites=true&w=majority',{ 
+mongoose.connect(`${process.env.MONGO_URI}?retryWrites=true&w=majority`,{ 
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex:true,
