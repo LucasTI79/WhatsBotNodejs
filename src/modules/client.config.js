@@ -15,12 +15,17 @@ const executablePaths = {
   "darwin": '/Applications/Google chrome.app/Contents/MacOS/Google Chrome'
 }
 
+const puppeteerConfig = {
+  headless: false,
+  executablePath: executablePaths[plataform],
+  defaultViewport: null,
+  ignoreDefaultArgs: ['--disable-extensions'],
+  args: ["--no-sandbox"]
+}
+
 const client = new Client({
   session: sessionCfg,
-  puppeteer: {
-    headless: false,
-    executablePath: executablePaths[plataform]
-  }
+  puppeteer: puppeteerConfig
 })
 
-module.exports = client;
+module.exports = { client, puppeteerConfig };

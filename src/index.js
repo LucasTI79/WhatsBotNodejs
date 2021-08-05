@@ -1,7 +1,7 @@
 require('dotenv').config()
 const fs = require('fs')
 const qrcode = require('qrcode-terminal');
-const client = require('./modules/client.config')
+const {client} = require('./modules/client.config')
 const path = require('path')
 const moment = require('moment');
 

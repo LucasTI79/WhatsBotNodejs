@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const client = require('./index');
+const puppeteer = require('puppeteer');
+const {puppeteerConfig} = require('./modules/client.config');
 
 const app = express();
 
@@ -16,6 +18,9 @@ app.post('/send', (req, res) => {
   res.redirect('/send.html')
 })
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log('server listening in http://localhost:3000')
+app.listen(process.env.PORT || 3000, async () => {
+  console.log('server listening in http://localhost:3000') 
+  const browser = await puppeteer.launch(puppeteerConfig);
+  const page = await browser.newPage();
+  await page.goto('http://localhost:3000');
 })
