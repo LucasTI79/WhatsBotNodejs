@@ -3,15 +3,17 @@ const fs = require('fs')
 const qrcode = require('qrcode-terminal');
 const client = require('./modules/client.config')
 const path = require('path')
+const moment = require('moment');
 
-const SESSION_FILE_PATH = path.resolve(__dirname,'..','session.json')
+const SESSION_FILE_PATH = path.resolve(__dirname,'..','session.jsonc')
 
 let sessionCfg;
 
-const { convertISODate, capitalizeFirstLetter, contains, timestampIsToday, monthShort } = require('./Utils/functions')
+const { convertISODate, capitalizeFirstLetter, contains, timestampIsToday } = require('./Utils/functions')
 const { responseMessage } = require('./Utils/responseMessages')
 const { MESSAGES } = require('./Utils/defaultMessages');
-const { consultasSemana, detalhesConsulta, changeStatus } = require('./resources/axios')
+const { consultasSemana, detalhesConsulta, changeStatus, options } = require('./resources/axios')
+
 
 client.on('qr', qr => {
   qrcode.generate(qr, {small: true});
@@ -42,7 +44,7 @@ client.on('ready', () => {
               changeStatus(consultaExpecifica, 4)
               
             }
-         // }
+        // }
         }       
       })
     })
@@ -51,9 +53,10 @@ client.on('ready', () => {
 })
 
 client.on('message', message => {
- if(!message.isStatus)
+if(!message.isStatus)
   message.body = message.body.toLocaleLowerCase()
   if(message.from === '5511984781330@c.us' || message.from === '5511979675330@c.us' || message.from === '5511981451920@c.us' || message.from === '5511979675330@c.us'){
+    console.log('message',message)
     message.getChat().then(async res => {
       const messages = await res.fetchMessages({limit: 12 });
       const messagesFiltered = messages.filter((element, i, self) => i === self.findIndex((el) => (el.body === element.body))); //filtrar para remover mensagens repetidas
@@ -112,4 +115,12 @@ client.on('change_state', state => {
   }
 });
 
-client.initialize();
+client.__init = (data) => {
+  options.params = { ...options.params , 
+    startDh: moment(data).toISOString(),
+    endDh: moment(data).add('days', 1).toISOString()
+  }
+  client.initialize()
+}
+
+module.exports = client;

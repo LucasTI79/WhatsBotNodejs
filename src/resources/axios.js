@@ -6,8 +6,8 @@ const { convertISODate, plano, dr } = require('../Utils/functions')
 
 const options = {
   params: {
-    startDh:'2021-07-29T03:00:00.000Z',
-    endDh:  '2021-07-30T03:00:00.000Z',
+    startDh:'2021-07-30T03:00:00.000Z',
+    endDh:  '2021-07-31T03:00:00.000Z',
     minimal:false,
     pageNumber:1
   }
@@ -21,13 +21,13 @@ const consultasSemana = async () => {
 
 const getProfessionals = async (consulta) => {
   const response = await axios.get(`https://api.simplesdental.com/profissionais`, options)
-  const data = response.data.content.map(professional => ({ [professional.id] : professional.nome.split(' ')[0]}))
+  const data = response.data.content.map(professional => ({ id: professional.id ,dr: professional.nome.split(' ')[0]}))
   return data
 }
 
 const getPlans = async (consulta) => {
-  const response = await axios.get(`https://api.simplesdental.com/planos`, options)
-  const data = response.data.content.map(plan => ({ [plan.id] :plan.nome }))
+  const response = await axios.get(`https://api.simplesdental.com/plans`, options)
+  const data = response.data.content.map(professional => ({ id: professional.id ,dr: professional.nome.split(' ')[0]}))
   return data
 }
 
@@ -98,7 +98,7 @@ const changeStatus = (consulta,status) => {
 }
 
 
-module.exports = { consultasSemana, detalhesConsulta , FiltroConsultaPorfissional, changeStatus, nextConsultas }
+module.exports = { consultasSemana, detalhesConsulta , FiltroConsultaPorfissional, changeStatus, nextConsultas, options }
 // ;
 // (async ()=> {
 //   console.log('next',nextConsultas('23285763892'))
@@ -113,8 +113,7 @@ module.exports = { consultasSemana, detalhesConsulta , FiltroConsultaPorfissiona
   })
   .then(async res => {
     options.headers = {'X-AUTH-TOKEN': res.data.profissionais[0].user.token} 
-    console.log('profissionais', await getProfessionals())
-    console.log('plans', await getPlans())
+    // console.log('profissionais', await getProfessionals())
     // console.log(options.headers)
     // console.log(await orto())
   })

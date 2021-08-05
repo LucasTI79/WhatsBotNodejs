@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOT</title>
+</head>
+<body style="font-family: 'Times New Roman', Times, serif;">
+    <main>
+      <h1 style="text-transform: uppercase;">Envio de mensagens</h1>
+      <h3 style="text-transform: uppercase;">Status</h3>
+      <p>AZUL - não foi enviada a mensagem</p>
+      <p>AMARELO - mensagem enviada</p>
+      <h3>OBS</h3>
+      <p>Se não quiser que o sistema envie a mensagem de confirmação pra certo paciente, mude o status da consulta dele para 'finalizada' (cinza)</p>
+      <br>
+      <form method="POST" action="../send">
+        <label for="dtSend" style="text-transform: uppercase;">data que você quer confirmar</label>
+        <input id="dtSend" type="date" name="dtSend">
+        <br><br>
+        <button style="background-color: rgb(15, 165, 192); padding: 0.75% 1%; color: white; border-radius: 5%; border-color: transparent; font-weight: bold;" type="submit">Enviar</button>
+      </form>
+    </main>
+</body>
+</html>
