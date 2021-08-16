@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + '/public'));
 
 app.post('/send', (req, res) => {
-  client.__init(req.body.dtSend)
+  client.__init(req.body)
+  // console.log(req.body)
   res.redirect('/send.html')
 })
 

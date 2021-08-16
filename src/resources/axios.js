@@ -116,21 +116,21 @@ module.exports = { consultasSemana, detalhesConsulta , FiltroConsultaPorfissiona
     // console.log('profissionais', await getProfessionals())
     // console.log(options.headers)
     // console.log(await orto())
-    // consultasSemana().then(response => {
-    //   response.forEach(consulta => {
-    //     detalhesConsulta(consulta).then(consultaExpecifica =>  {
-    //       if(consultaExpecifica.paciente.celular){
-    //         if(consultaExpecifica.status === 5 || consultaExpecifica.status === 6 || consultaExpecifica.status === 7){
-    //             console.log(
-    //               consultaExpecifica.paciente.nome.split(' ')[0],
-    //               convertISODate(consultaExpecifica.data,'confirmacao')  
-    //             )
-    //           }
-    //       // }
-    //       }       
-    //     })
-    //   })
-    // })
+    consultasSemana().then(response => {
+      response.forEach(consulta => {
+        detalhesConsulta(consulta).then(consultaExpecifica =>  {
+          if(consultaExpecifica.paciente.celular){
+            if([5,6,7].includes(consultaExpecifica.status)){
+              console.log(
+                consultaExpecifica.paciente.nome.split(' ')[0],
+                convertISODate(consultaExpecifica.data,'confirmacao')  ,
+                
+              )
+            }
+          }       
+        })
+      })
+    })
   
   })
 })()

@@ -18,6 +18,10 @@
       <form method="POST" action="../send">
         <label for="dtSend" style="text-transform: uppercase;">data que você quer confirmar</label>
         <input id="dtSend" type="date" name="dtSend">
+        <select name="type">
+          <option value="confirm">Confirmação</option>
+          <option value="reschedule">Reagendamento</option>
+        </select>
         <br><br>
         <button style="background-color: rgb(15, 165, 192); padding: 0.75% 1%; color: white; border-radius: 5%; border-color: transparent; font-weight: bold;" type="submit">Enviar</button>
       </form>

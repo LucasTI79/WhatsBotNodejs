@@ -76,6 +76,16 @@ const MESSAGES = {
     'Lucas\n' +
     'Instituto Galindo Odontologia',
 
+    reagendar: (nome, data, profissional) => `Olá ${nome} ! Espero que esteja bem!!!\n` +
+    '\n' +
+    `É o Lucas da IGO, verificamos que na *${data} com Dr(a) ${profissional} você não conseguiu comparecer 😕!!*\n` +
+    '\n' +
+    'Podemos reagendar sua consulta?\n'+ 
+    '\n' +
+    'Qualquer dúvida pode entrar em contato conosco pelo número (11)34594383\n'+
+    '\n'+
+    'Lucas\n' +
+    'Instituto Galindo Odontologia',
 
     funcionamento: 'Nosso horário de funcionamento é de segunda a sexta feira das 8h às 19h\n'+
     '\n' +

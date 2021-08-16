@@ -9,11 +9,21 @@ const SESSION_FILE_PATH = path.resolve(__dirname,'..','session.jsonc')
 
 let sessionCfg;
 
+let option;
+
 const { convertISODate, capitalizeFirstLetter, contains, timestampIsToday } = require('./Utils/functions')
 const { responseMessage } = require('./Utils/responseMessages')
 const { MESSAGES } = require('./Utils/defaultMessages');
 const { consultasSemana, detalhesConsulta, changeStatus, options } = require('./resources/axios')
 
+client.__init = ({ dtSend: data , type}) => {
+  option = type;
+  options.params = { ...options.params , 
+    startDh: moment(data).toISOString(),
+    endDh: moment(data).add('days', 1).toISOString()
+  }
+  client.initialize()
+}
 
 client.on('qr', qr => {
   qrcode.generate(qr, {small: true});
@@ -26,25 +36,43 @@ client.on('ready', () => {
     response.forEach(consulta => {
       detalhesConsulta(consulta).then(consultaExpecifica =>  {
         if(consultaExpecifica.paciente.celular){
-          if(consultaExpecifica.status === 0 || consultaExpecifica.status === 2){
-              // console.log(
-              //   consultaExpecifica.paciente.nome.split(' ')[0],
-              //   convertISODate(consultaExpecifica.data,'confirmacao')  
-              // )
-              client.sendMessage(
-                `55${consultaExpecifica.paciente.celular}@c.us`,
-                `${
-                  MESSAGES.confirmar(
-                    capitalizeFirstLetter(consultaExpecifica.paciente.nome.split(' ')[0]),
-                    convertISODate(consultaExpecifica.data,'confirmacao'),
-                    capitalizeFirstLetter(consultaExpecifica.profissional.nome.split(' ')[0])
-                  )}`
+          console.log('option', option)
+          if(option === 'reschedule'){
+            if([5,6,7].includes(consultaExpecifica.status)){
+              console.log(
+                consultaExpecifica.paciente.nome.split(' ')[0],
+                convertISODate(consultaExpecifica.data,'confirmacao')  ,
+                'reagendamento'
               )
-              .then(r =>  responseMessage(r, consultaExpecifica))
-              changeStatus(consultaExpecifica, 4)
-              
+            // client.sendMessage(
+            //   `55${consultaExpecifica.paciente.celular}@c.us`,
+            //   `${
+            //     MESSAGES.confirmar(
+            //       capitalizeFirstLetter(consultaExpecifica.paciente.nome.split(' ')[0]),
+            //       convertISODate(consultaExpecifica.data,'confirmacao'),
+            //       capitalizeFirstLetter(consultaExpecifica.profissional.nome.split(' ')[0])
+            //     )}`
+            // )
             }
-        // }
+          }else if([0,2].includes(consultaExpecifica.status)){
+            console.log(
+              consultaExpecifica.paciente.nome.split(' ')[0],
+              convertISODate(consultaExpecifica.data,'confirmacao'),
+              'confirmacao'  
+            )
+            client.sendMessage(
+              `55${consultaExpecifica.paciente.celular}@c.us`,
+              `${
+                MESSAGES.confirmar(
+                  capitalizeFirstLetter(consultaExpecifica.paciente.nome.split(' ')[0]),
+                  convertISODate(consultaExpecifica.data,'confirmacao'),
+                  capitalizeFirstLetter(consultaExpecifica.profissional.nome.split(' ')[0])
+                )}`
+            )
+            .then(r =>  responseMessage(r, consultaExpecifica))
+            changeStatus(consultaExpecifica, 4)
+              
+          }
         }       
       })
     })
@@ -55,7 +83,7 @@ client.on('ready', () => {
 client.on('message', message => {
 if(!message.isStatus)
   message.body = message.body.toLocaleLowerCase()
-  if(message.from === '5511984781330@c.us' || message.from === '5511979675330@c.us' || message.from === '5511981451920@c.us' || message.from === '5511979675330@c.us'){
+  if(['5511979675330@c.us','5511981451920@c.us','5511979675330@c.us'].includes(message.from)){
     console.log('message',message)
     message.getChat().then(async res => {
       const messages = await res.fetchMessages({limit: 12 });
@@ -114,13 +142,5 @@ client.on('change_state', state => {
     });
   }
 });
-
-client.__init = (data) => {
-  options.params = { ...options.params , 
-    startDh: moment(data).toISOString(),
-    endDh: moment(data).add('days', 1).toISOString()
-  }
-  client.initialize()
-}
 
 module.exports = client;
