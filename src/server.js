@@ -18,6 +18,12 @@ app.post('/send', (req, res) => {
   res.redirect('/send.html')
 })
 
+app.post('/reschedule', (req, res) => {
+  // client.__init(req.body.dtSend)
+  const { dtSend, type } = req.body;
+  res.redirect('/send.html')
+})
+
 app.listen(process.env.PORT || 3000, async () => {
   console.log('server listening in http://localhost:3000') 
   const browser = await puppeteer.launch(puppeteerConfig);

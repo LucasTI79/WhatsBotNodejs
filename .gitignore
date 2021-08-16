@@ -1,10 +1,12 @@
 node_modules
 .env
-session.json
-sessions.txt
+session.jsonc
 yarn.lock
 package-lock.json
 examples.js
 features.md
-drs.txt
-planos.txt
+# drs.txt
+# planos.txt
+# status.txt
+# sessions.txt
+*.txt

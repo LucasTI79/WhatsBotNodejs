@@ -67,7 +67,7 @@ if(!message.isStatus)
         client.sendMessage(
           message.from, 
           responseMessage(message)
-            .then()
+            .then(res => res)
             .catch(err => console.log('error in responseMessage from index.js',err))
         )
       }

@@ -107,8 +107,8 @@ module.exports = { consultasSemana, detalhesConsulta , FiltroConsultaPorfissiona
 ;
 (async() => {
   axios.post('https://api.simplesdental.com/loginmultiplo', {
-    username: process.env.LOGIN_SIMPLES,
-    password: process.env.PASS_SIMPLES,
+    username: 'contato@igodonto.com.br',
+    password: '280612',
     token: null
   })
   .then(async res => {
@@ -116,5 +116,21 @@ module.exports = { consultasSemana, detalhesConsulta , FiltroConsultaPorfissiona
     // console.log('profissionais', await getProfessionals())
     // console.log(options.headers)
     // console.log(await orto())
+    // consultasSemana().then(response => {
+    //   response.forEach(consulta => {
+    //     detalhesConsulta(consulta).then(consultaExpecifica =>  {
+    //       if(consultaExpecifica.paciente.celular){
+    //         if(consultaExpecifica.status === 5 || consultaExpecifica.status === 6 || consultaExpecifica.status === 7){
+    //             console.log(
+    //               consultaExpecifica.paciente.nome.split(' ')[0],
+    //               convertISODate(consultaExpecifica.data,'confirmacao')  
+    //             )
+    //           }
+    //       // }
+    //       }       
+    //     })
+    //   })
+    // })
+  
   })
 })()
